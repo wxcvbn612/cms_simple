@@ -1,0 +1,72 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Messages{% endblock %}
+{% block page_title %}Messages de contact{% endblock %}
+
+{% block body %}
+{% if messages is empty %}
+    <div class="card border-0 shadow-sm">
+        <div class="card-body text-center py-5 text-muted">
+            <i class="bi bi-envelope-open fs-1 mb-3 d-block"></i>
+            Aucun message pour le moment.
+        </div>
+    </div>
+{% else %}
+<div class="card border-0 shadow-sm">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th style="width:8px"></th>
+                    <th>Expéditeur</th>
+                    <th>Message</th>
+                    <th>Date</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for message in messages %}
+                <tr class="{{ not message.isRead ? 'table-warning' : '' }}">
+                    <td>
+                        {% if not message.isRead %}
+                            <span class="badge bg-warning text-dark">Nouveau</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <div class="fw-semibold">{{ message.nom }}</div>
+                        <a href="mailto:{{ message.email }}" class="small text-muted">{{ message.email }}</a>
+                        {% if message.telephone %}
+                            <br><a href="tel:{{ message.telephone }}" class="small text-muted">{{ message.telephone }}</a>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <span class="small">{{ message.message|slice(0, 100) }}{% if message.message|length > 100 %}…{% endif %}</span>
+                    </td>
+                    <td class="text-muted small">{{ message.createdAt|date('d/m/Y H:i') }}</td>
+                    <td class="text-end">
+                        {% if not message.isRead %}
+                        <form method="post" action="{{ path('admin_message_read', {'id': message.id}) }}" class="d-inline">
+                            <button class="btn btn-sm btn-outline-success me-1" title="Marquer comme lu">
+                                <i class="bi bi-check-circle"></i>
+                            </button>
+                        </form>
+                        {% endif %}
+                        <a href="mailto:{{ message.email }}?subject=Re: votre message" class="btn btn-sm btn-outline-primary me-1">
+                            <i class="bi bi-reply"></i>
+                        </a>
+                        <form method="post" action="{{ path('admin_message_delete', {'id': message.id}) }}" class="d-inline"
+                              onsubmit="return confirm('Supprimer ce message ?')">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ message.id) }}">
+                            <button class="btn btn-sm btn-outline-danger">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

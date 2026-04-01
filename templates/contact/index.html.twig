@@ -1,0 +1,104 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ lp.contactSectionTitle }} — {{ settings.siteName }}{% endblock %}
+
+{% block navbar %}
+<nav class="navbar navbar-expand-lg shadow-sm" style="background-color: var(--color-navbar-bg);">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="{{ path('home', {'_locale': app.request.locale}) }}" style="color: var(--color-navbar-text);">
+            {% if settings.logoFilename %}
+                <img src="{{ asset('uploads/logo/' ~ settings.logoFilename) }}" alt="{{ settings.siteName }}" height="40">
+            {% else %}
+                {{ settings.siteName }}
+            {% endif %}
+        </a>
+        <div class="ms-auto">
+            <a href="{{ path('home', {'_locale': 'fr'}) }}" class="btn btn-sm btn-outline-secondary me-1">FR</a>
+            <a href="{{ path('home', {'_locale': 'ar'}) }}" class="btn btn-sm btn-outline-secondary">عربي</a>
+        </div>
+    </div>
+</nav>
+{% endblock %}
+
+{% block body %}
+<section class="py-5" style="background-color: {{ lp.contactSectionBg }};">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-7">
+                <div class="mb-4">
+                    <a href="{{ path('home', {'_locale': app.request.locale}) }}#contact" class="text-decoration-none text-muted">
+                        <i class="bi bi-arrow-left me-1"></i>{{ 'contact.back'|trans }}
+                    </a>
+                </div>
+
+                <h1 class="fw-bold mb-2">{{ lp.contactSectionTitle }}</h1>
+                {% if lp.contactSectionSubtitle %}
+                    <p class="text-muted mb-4">{{ lp.contactSectionSubtitle }}</p>
+                {% endif %}
+
+                {{ form_start(form, {'attr': {'novalidate': 'novalidate', 'class': 'needs-validation'}}) }}
+
+                    {# Honeypot — hidden from real users #}
+                    <div aria-hidden="true" style="display:none !important;">
+                        {{ form_row(form.website) }}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form_label(form.nom, null, {'label_attr': {'class': 'form-label fw-semibold'}}) }}
+                        {{ form_widget(form.nom) }}
+                        {{ form_errors(form.nom) }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_label(form.email, null, {'label_attr': {'class': 'form-label fw-semibold'}}) }}
+                        {{ form_widget(form.email) }}
+                        {{ form_errors(form.email) }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_label(form.telephone, null, {'label_attr': {'class': 'form-label fw-semibold'}}) }}
+                        {{ form_widget(form.telephone) }}
+                        {{ form_errors(form.telephone) }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_label(form.message, null, {'label_attr': {'class': 'form-label fw-semibold'}}) }}
+                        {{ form_widget(form.message) }}
+                        {{ form_errors(form.message) }}
+                    </div>
+
+                    <button type="submit" class="btn btn-lg w-100 fw-semibold"
+                        style="background-color: var(--color-primary); color: #fff; border: none;">
+                        {{ 'contact.send'|trans }}
+                    </button>
+
+                {{ form_end(form) }}
+            </div>
+
+            <div class="col-lg-4 offset-lg-1 mt-5 mt-lg-0">
+                <div class="p-4 rounded-3 shadow-sm bg-white h-100">
+                    <h5 class="fw-bold mb-3">{{ 'contact.info'|trans }}</h5>
+                    {% if settings.phone %}
+                    <p class="mb-2"><i class="bi bi-telephone-fill me-2 text-primary"></i><a href="tel:{{ settings.phone }}" class="text-decoration-none">{{ settings.phone }}</a></p>
+                    {% endif %}
+                    {% if settings.email %}
+                    <p class="mb-2"><i class="bi bi-envelope-fill me-2 text-primary"></i><a href="mailto:{{ settings.email }}" class="text-decoration-none">{{ settings.email }}</a></p>
+                    {% endif %}
+                    {% if settings.address %}
+                    <p class="mb-2"><i class="bi bi-geo-alt-fill me-2 text-primary"></i>{{ settings.address }}</p>
+                    {% endif %}
+                    {% if settings.whatsapp %}
+                    <a href="https://wa.me/{{ settings.whatsapp|replace({'+': '', ' ': ''}) }}"
+                       target="_blank" class="btn btn-success w-100 mt-3">
+                        <i class="bi bi-whatsapp me-2"></i>WhatsApp
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block footer %}
+<footer class="py-3 text-center" style="background-color: var(--color-footer-bg); color: var(--color-footer-text);">
+    <small>{{ settings.footerText }}</small>
+</footer>
+{% endblock %}

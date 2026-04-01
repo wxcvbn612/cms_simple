@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(php bin/console about)",
+      "Bash(composer require:*)",
+      "Bash(php bin/console debug:router)",
+      "Bash(php:*)"
+    ]
+  }
+}

@@ -1,0 +1,34 @@
+# الصفحات العامة
+contact:
+    name: اسمك الكامل
+    name_required: يرجى إدخال اسمك.
+    email: بريدك الإلكتروني
+    email_required: يرجى إدخال بريدك الإلكتروني.
+    email_invalid: يرجى إدخال بريد إلكتروني صحيح.
+    phone: هاتفك (اختياري)
+    message: رسالتك
+    message_required: يرجى كتابة رسالتك.
+    send: إرسال الرسالة
+    success: تم إرسال رسالتك بنجاح. سنرد عليك في أقرب وقت.
+    back: العودة إلى الموقع
+    info: معلومات التواصل
+    open_form: أرسل رسالة
+
+actualites:
+    empty: لا توجد أخبار متاحة في الوقت الحالي.
+
+# رسائل الإدارة
+admin:
+    actualite:
+        created: تم إنشاء الخبر بنجاح.
+        updated: تم تحديث الخبر بنجاح.
+        deleted: تم حذف الخبر.
+        toggled: تم تغيير حالة النشر.
+    message:
+        deleted: تم حذف الرسالة.
+    settings:
+        updated: تم حفظ الإعدادات بنجاح.
+    landing:
+        updated: تم تحديث المظهر بنجاح.
+    upload:
+        error: حدث خطأ أثناء تحميل الملف.

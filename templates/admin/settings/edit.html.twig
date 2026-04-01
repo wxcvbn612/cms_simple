@@ -1,0 +1,67 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Paramètres{% endblock %}
+{% block page_title %}Paramètres du site{% endblock %}
+
+{% block body %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white border-bottom py-3">
+                <h6 class="fw-bold mb-0">Informations de la société</h6>
+            </div>
+            <div class="card-body p-4">
+                {{ form_start(form, {'attr': {'enctype': 'multipart/form-data'}}) }}
+
+                <div class="row g-3">
+                    <div class="col-md-6">{{ form_row(form.siteName) }}</div>
+                    <div class="col-md-6">{{ form_row(form.siteTagline) }}</div>
+                    <div class="col-md-6">{{ form_row(form.logoFile) }}</div>
+                    <div class="col-md-6">{{ form_row(form.faviconFile) }}</div>
+
+                    {# Preview current logo/favicon #}
+                    {% if settings.logoFilename or settings.faviconFilename %}
+                    <div class="col-12">
+                        <div class="d-flex gap-4 align-items-center">
+                            {% if settings.logoFilename %}
+                            <div>
+                                <label class="form-label small text-muted">Logo actuel</label><br>
+                                <img src="{{ asset('uploads/logo/' ~ settings.logoFilename) }}" height="50" class="rounded">
+                            </div>
+                            {% endif %}
+                            {% if settings.faviconFilename %}
+                            <div>
+                                <label class="form-label small text-muted">Favicon actuel</label><br>
+                                <img src="{{ asset('uploads/logo/' ~ settings.faviconFilename) }}" height="32" class="rounded">
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <div class="col-md-6">{{ form_row(form.phone) }}</div>
+                    <div class="col-md-6">{{ form_row(form.email) }}</div>
+                    <div class="col-12">{{ form_row(form.adminEmail) }}</div>
+                    <div class="col-12">{{ form_row(form.address) }}</div>
+                    <div class="col-md-4">{{ form_row(form.defaultLocale) }}</div>
+
+                    <div class="col-12"><hr><h6 class="fw-bold">Réseaux sociaux</h6></div>
+                    <div class="col-md-4">{{ form_row(form.facebookUrl) }}</div>
+                    <div class="col-md-4">{{ form_row(form.instagramUrl) }}</div>
+                    <div class="col-md-4">{{ form_row(form.whatsapp) }}</div>
+
+                    <div class="col-12">{{ form_row(form.footerText) }}</div>
+
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary px-4">
+                            <i class="bi bi-check-lg me-2"></i>Enregistrer
+                        </button>
+                    </div>
+                </div>
+
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

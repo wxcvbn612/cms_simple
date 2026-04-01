@@ -1,0 +1,205 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ settings.siteName }}{% endblock %}
+
+{% block navbar %}
+<nav class="navbar navbar-expand-lg sticky-top shadow-sm" style="background-color: var(--color-navbar-bg);">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="{{ path('home', {'_locale': app.request.locale}) }}" style="color: var(--color-navbar-text);">
+            {% if settings.logoFilename %}
+                <img src="{{ asset('uploads/logo/' ~ settings.logoFilename) }}" alt="{{ settings.siteName }}" height="40">
+            {% else %}
+                {{ settings.siteName }}
+            {% endif %}
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarMain">
+            <ul class="navbar-nav ms-auto align-items-center gap-2">
+                <li class="nav-item">
+                    <a class="nav-link" href="#actualites" style="color: var(--color-navbar-text);">
+                        {{ lp.actualitesSectionTitle }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#contact" style="color: var(--color-navbar-text);">
+                        {{ lp.contactSectionTitle }}
+                    </a>
+                </li>
+                {# Language switcher #}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" style="color: var(--color-navbar-text);">
+                        {% if app.request.locale == 'ar' %}🇩🇿 عربي{% else %}🇫🇷 FR{% endif %}
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="{{ path('home', {'_locale': 'fr'}) }}">🇫🇷 Français</a></li>
+                        <li><a class="dropdown-item" href="{{ path('home', {'_locale': 'ar'}) }}">🇩🇿 عربي</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+{% endblock %}
+
+{% block body %}
+
+{# ============ HERO ============ #}
+<section id="hero" class="py-5 d-flex align-items-center min-vh-75"
+    style="
+        {% if lp.heroBackgroundImage %}
+            background: url('{{ asset('uploads/hero/' ~ lp.heroBackgroundImage) }}') center/cover no-repeat;
+        {% else %}
+            background-color: {{ lp.heroBackgroundColor ?? lp.colorPrimary }};
+        {% endif %}
+        color: {{ lp.heroTextColor }};
+        min-height: 75vh;
+    ">
+    <div class="container text-center">
+        <h1 class="display-3 fw-bold mb-3">{{ lp.heroTitle }}</h1>
+        {% if lp.heroSubtitle %}
+            <p class="lead mb-4 fs-4">{{ lp.heroSubtitle }}</p>
+        {% endif %}
+        <a href="#contact"
+            class="btn btn-lg px-5 py-3 fw-semibold"
+            style="background-color: {{ lp.heroButtonColor }}; color: {{ lp.heroButtonTextColor }}; border: none;">
+            {{ lp.heroButtonText }}
+        </a>
+    </div>
+</section>
+
+{# ============ ABOUT (optional) ============ #}
+{% if lp.aboutEnabled %}
+<section id="about" class="py-5">
+    <div class="container">
+        <div class="row align-items-center g-4">
+            {% if lp.aboutImage %}
+            <div class="col-md-5">
+                <img src="{{ asset('uploads/about/' ~ lp.aboutImage) }}" alt="{{ lp.aboutTitle }}" class="img-fluid rounded shadow">
+            </div>
+            <div class="col-md-7">
+            {% else %}
+            <div class="col-12">
+            {% endif %}
+                <h2 class="fw-bold mb-3">{{ lp.aboutTitle }}</h2>
+                <div>{{ lp.aboutText|nl2br }}</div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{# ============ ACTUALITÉS ============ #}
+<section id="actualites" class="py-5" style="background-color: {{ lp.actualitesSectionBg }};">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">{{ lp.actualitesSectionTitle }}</h2>
+            {% if lp.actualitesSectionSubtitle %}
+                <p class="text-muted lead">{{ lp.actualitesSectionSubtitle }}</p>
+            {% endif %}
+        </div>
+
+        {% if actualites is empty %}
+            <p class="text-center text-muted">{{ 'actualites.empty'|trans }}</p>
+        {% else %}
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            {% for actualite in actualites %}
+            <div class="col">
+                <div class="card h-100 shadow-sm border-0">
+                    {% if actualite.image %}
+                        <img src="{{ asset('uploads/actualites/' ~ actualite.image) }}"
+                             class="card-img-top" alt="{{ actualite.titre }}"
+                             style="height: 200px; object-fit: cover;">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title fw-semibold">{{ actualite.titre }}</h5>
+                        <p class="card-text text-muted small">
+                            {{ actualite.datePublication|date('d/m/Y') }}
+                        </p>
+                        <p class="card-text">{{ actualite.contenu|slice(0, 150) }}{% if actualite.contenu|length > 150 %}…{% endif %}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+{# ============ CONTACT ============ #}
+<section id="contact" class="py-5" style="background-color: {{ lp.contactSectionBg }};">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">{{ lp.contactSectionTitle }}</h2>
+            {% if lp.contactSectionSubtitle %}
+                <p class="text-muted lead">{{ lp.contactSectionSubtitle }}</p>
+            {% endif %}
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                {# Contact info #}
+                <div class="mb-4">
+                    {% if settings.phone %}
+                    <p><i class="bi bi-telephone me-2" style="color: var(--color-primary);"></i>{{ settings.phone }}</p>
+                    {% endif %}
+                    {% if settings.email %}
+                    <p><i class="bi bi-envelope me-2" style="color: var(--color-primary);"></i>{{ settings.email }}</p>
+                    {% endif %}
+                    {% if settings.address %}
+                    <p><i class="bi bi-geo-alt me-2" style="color: var(--color-primary);"></i>{{ settings.address }}</p>
+                    {% endif %}
+                </div>
+
+                {# Contact form (redirect to contact page for full form handling) #}
+                <div class="text-center">
+                    <a href="{{ path('contact', {'_locale': app.request.locale}) }}"
+                       class="btn btn-lg px-5"
+                       style="background-color: var(--color-primary); color: #fff; border: none;">
+                        {{ 'contact.open_form'|trans }}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block footer %}
+<footer class="py-4" style="background-color: var(--color-footer-bg); color: var(--color-footer-text);">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-4 mb-2 mb-md-0">
+                <strong>{{ settings.siteName }}</strong>
+                {% if settings.siteTagline %}
+                    <br><small>{{ settings.siteTagline }}</small>
+                {% endif %}
+            </div>
+            <div class="col-md-4 text-center mb-2 mb-md-0">
+                {% if settings.footerText %}
+                    <small>{{ settings.footerText }}</small>
+                {% endif %}
+            </div>
+            <div class="col-md-4 text-md-end">
+                {% if settings.facebookUrl %}
+                    <a href="{{ settings.facebookUrl }}" target="_blank" class="me-2" style="color: var(--color-footer-text);">
+                        <i class="bi bi-facebook fs-5"></i>
+                    </a>
+                {% endif %}
+                {% if settings.instagramUrl %}
+                    <a href="{{ settings.instagramUrl }}" target="_blank" class="me-2" style="color: var(--color-footer-text);">
+                        <i class="bi bi-instagram fs-5"></i>
+                    </a>
+                {% endif %}
+                {% if settings.whatsapp %}
+                    <a href="https://wa.me/{{ settings.whatsapp|replace({'+': '', ' ': ''}) }}" target="_blank" style="color: var(--color-footer-text);">
+                        <i class="bi bi-whatsapp fs-5"></i>
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</footer>
+{% endblock %}

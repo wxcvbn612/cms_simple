@@ -1,0 +1,34 @@
+# Public pages
+contact:
+    name: Votre nom
+    name_required: Veuillez saisir votre nom.
+    email: Votre email
+    email_required: Veuillez saisir votre email.
+    email_invalid: Veuillez saisir un email valide.
+    phone: Votre téléphone (optionnel)
+    message: Votre message
+    message_required: Veuillez saisir votre message.
+    send: Envoyer le message
+    success: Votre message a bien été envoyé. Nous vous répondrons dans les meilleurs délais.
+    back: Retour au site
+    info: Nos coordonnées
+    open_form: Envoyer un message
+
+actualites:
+    empty: Aucune actualité disponible pour le moment.
+
+# Admin messages
+admin:
+    actualite:
+        created: L'actualité a été créée avec succès.
+        updated: L'actualité a été mise à jour avec succès.
+        deleted: L'actualité a été supprimée.
+        toggled: Le statut de publication a été modifié.
+    message:
+        deleted: Le message a été supprimé.
+    settings:
+        updated: Les paramètres ont été enregistrés avec succès.
+    landing:
+        updated: L'apparence a été mise à jour avec succès.
+    upload:
+        error: Une erreur est survenue lors du téléversement du fichier.
