@@ -8,71 +8,46 @@
     <div class="col-lg-9">
         <div class="card border-0 shadow-sm">
             <div class="card-header bg-white border-bottom">
-                {# Bootstrap nav-tabs #}
                 <ul class="nav nav-tabs card-header-tabs" id="landingTabs" role="tablist">
-                    <li class="nav-item">
-                        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-colors">
-                            <i class="bi bi-palette me-1"></i>Couleurs
-                        </button>
-                    </li>
-                    <li class="nav-item">
-                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-fonts">
-                            <i class="bi bi-type me-1"></i>Typographie
-                        </button>
-                    </li>
-                    <li class="nav-item">
-                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-hero">
-                            <i class="bi bi-card-image me-1"></i>Hero
-                        </button>
-                    </li>
-                    <li class="nav-item">
-                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-sections">
-                            <i class="bi bi-layout-text-window me-1"></i>Sections
-                        </button>
-                    </li>
-                    <li class="nav-item">
-                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-about">
-                            <i class="bi bi-info-circle me-1"></i>À propos
-                        </button>
-                    </li>
+                    <li class="nav-item"><button type="button" class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-colors"><i class="bi bi-palette me-1"></i>Couleurs</button></li>
+                    <li class="nav-item"><button type="button" class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-fonts"><i class="bi bi-type me-1"></i>Typographie</button></li>
+                    <li class="nav-item"><button type="button" class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-hero"><i class="bi bi-card-image me-1"></i>Hero</button></li>
+                    <li class="nav-item"><button type="button" class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-sections"><i class="bi bi-layout-text-window me-1"></i>Sections</button></li>
+                    <li class="nav-item"><button type="button" class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-about"><i class="bi bi-info-circle me-1"></i>A propos</button></li>
+                    <li class="nav-item"><button type="button" class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-blocks"><i class="bi bi-grid-1x2 me-1"></i>Blocs predefinis</button></li>
+                    <li class="nav-item"><button type="button" class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-order"><i class="bi bi-list-ol me-1"></i>Ordre des blocs</button></li>
                 </ul>
             </div>
 
             <div class="card-body p-4">
                 {{ form_start(form, {'attr': {'enctype': 'multipart/form-data', 'id': 'landing-form'}}) }}
+                {{ form_widget(form.sectionOrder) }}
+                {% if not form.vars.valid %}
+                    <div class="alert alert-danger">
+                        {{ form_errors(form) }}
+                    </div>
+                {% endif %}
 
                 <div class="tab-content" id="landingTabsContent">
-
-                    {# ====== TAB: COLORS ====== #}
                     <div class="tab-pane fade show active" id="tab-colors" role="tabpanel">
                         <h6 class="fw-bold mb-4 text-muted text-uppercase small">Palette de couleurs</h6>
                         <div class="row g-3">
-                            {% for field in ['colorPrimary','colorSecondary','colorBackground','colorText',
-                                             'colorNavbarBg','colorNavbarText','colorFooterBg','colorFooterText'] %}
-                            <div class="col-md-6">
-                                <div class="d-flex align-items-center gap-3 p-3 border rounded-2">
-                                    <div>
-                                        {{ form_widget(form[field], {'attr': {'class': 'form-control form-control-color', 'style': 'width:48px;height:48px;cursor:pointer;'}}) }}
-                                    </div>
-                                    <div class="flex-grow-1">
-                                        {{ form_label(form[field], null, {'label_attr': {'class': 'form-label mb-1 fw-semibold small'}}) }}
-                                        <div class="small text-muted color-preview-value"></div>
+                            {% for field in ['colorPrimary','colorSecondary','colorBackground','colorText','colorNavbarBg','colorNavbarText','colorFooterBg','colorFooterText'] %}
+                                <div class="col-md-6">
+                                    <div class="d-flex align-items-center gap-3 p-3 border rounded-2">
+                                        {{ form_widget(form[field], {'attr': {'class': 'form-control form-control-color', 'style': 'width:48px;height:48px;'}}) }}
+                                        <div class="flex-grow-1">
+                                            {{ form_label(form[field], null, {'label_attr': {'class': 'form-label mb-1 fw-semibold small'}}) }}
+                                            <div class="small text-muted color-preview-value"></div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                             {% endfor %}
                         </div>
                     </div>
 
-                    {# ====== TAB: FONTS ====== #}
                     <div class="tab-pane fade" id="tab-fonts" role="tabpanel">
                         <h6 class="fw-bold mb-4 text-muted text-uppercase small">Typographie</h6>
-                        <div class="alert alert-info small">
-                            <i class="bi bi-info-circle me-1"></i>
-                            Entrez le nom exact d'une police
-                            <a href="https://fonts.google.com" target="_blank">Google Fonts</a>
-                            (ex: Roboto, Poppins, Cairo, Tajawal).
-                        </div>
                         <div class="row g-3">
                             <div class="col-md-5">{{ form_row(form.fontHeading) }}</div>
                             <div class="col-md-5">{{ form_row(form.fontBody) }}</div>
@@ -80,107 +55,223 @@
                         </div>
                     </div>
 
-                    {# ====== TAB: HERO ====== #}
                     <div class="tab-pane fade" id="tab-hero" role="tabpanel">
                         <h6 class="fw-bold mb-4 text-muted text-uppercase small">Section Hero</h6>
                         <div class="row g-3">
                             <div class="col-12">{{ form_row(form.heroTitle) }}</div>
                             <div class="col-12">{{ form_row(form.heroSubtitle) }}</div>
                             <div class="col-md-6">{{ form_row(form.heroBackgroundImageFile) }}</div>
-                            {% if lp.heroBackgroundImage %}
-                            <div class="col-md-6">
-                                <label class="form-label small text-muted">Image actuelle</label><br>
-                                <img src="{{ asset('uploads/hero/' ~ lp.heroBackgroundImage) }}"
-                                     class="img-thumbnail" style="max-height:100px;">
-                            </div>
+                            {% if form.heroBackgroundImageFile.vars.errors|length > 0 %}
+                                <div class="col-12">
+                                    <div class="alert alert-danger py-2 mb-0">{{ form_errors(form.heroBackgroundImageFile) }}</div>
+                                </div>
                             {% endif %}
-                            <div class="col-md-4">
-                                <div class="d-flex align-items-center gap-3 p-3 border rounded-2">
-                                    {{ form_widget(form.heroBackgroundColor, {'attr': {'class': 'form-control form-control-color', 'style': 'width:48px;height:48px;'}}) }}
-                                    <div>{{ form_label(form.heroBackgroundColor, null, {'label_attr': {'class': 'form-label mb-0 small fw-semibold'}}) }}</div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="d-flex align-items-center gap-3 p-3 border rounded-2">
-                                    {{ form_widget(form.heroTextColor, {'attr': {'class': 'form-control form-control-color', 'style': 'width:48px;height:48px;'}}) }}
-                                    <div>{{ form_label(form.heroTextColor, null, {'label_attr': {'class': 'form-label mb-0 small fw-semibold'}}) }}</div>
-                                </div>
-                            </div>
-                            <div class="col-md-12 mt-2">
-                                <h6 class="small fw-bold text-muted text-uppercase">Bouton CTA</h6>
-                            </div>
-                            <div class="col-md-4">{{ form_row(form.heroButtonText) }}</div>
-                            <div class="col-md-4">
-                                <div class="d-flex align-items-center gap-3 p-3 border rounded-2">
-                                    {{ form_widget(form.heroButtonColor, {'attr': {'class': 'form-control form-control-color', 'style': 'width:48px;height:48px;'}}) }}
-                                    <div>{{ form_label(form.heroButtonColor, null, {'label_attr': {'class': 'form-label mb-0 small fw-semibold'}}) }}</div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="d-flex align-items-center gap-3 p-3 border rounded-2">
-                                    {{ form_widget(form.heroButtonTextColor, {'attr': {'class': 'form-control form-control-color', 'style': 'width:48px;height:48px;'}}) }}
-                                    <div>{{ form_label(form.heroButtonTextColor, null, {'label_attr': {'class': 'form-label mb-0 small fw-semibold'}}) }}</div>
-                                </div>
-                            </div>
+                            {% if lp.heroBackgroundImage %}
+                                <div class="col-md-6"><label class="form-label small text-muted">Image actuelle</label><br><img src="{{ asset('uploads/hero/' ~ lp.heroBackgroundImage) }}" alt="Apercu de l'image hero actuelle" class="img-thumbnail" style="max-height:100px;"></div>
+                            {% endif %}
+                            <div class="col-md-4">{{ form_row(form.heroBackgroundColor) }}</div>
+                            <div class="col-md-4">{{ form_row(form.heroTextColor) }}</div>
+                            <div class="col-md-4">{{ form_row(form.heroButtonColor) }}</div>
+                            <div class="col-md-6">{{ form_row(form.heroButtonText) }}</div>
+                            <div class="col-md-6">{{ form_row(form.heroButtonTextColor) }}</div>
                         </div>
                     </div>
 
-                    {# ====== TAB: SECTIONS ====== #}
                     <div class="tab-pane fade" id="tab-sections" role="tabpanel">
-                        <h6 class="fw-bold mb-4 text-muted text-uppercase small">Sections de la page</h6>
+                        <h6 class="fw-bold mb-4 text-muted text-uppercase small">Sections classiques</h6>
                         <div class="row g-3">
-                            <div class="col-12"><h6 class="small fw-semibold">Section Actualités</h6></div>
                             <div class="col-md-6">{{ form_row(form.actualitesSectionTitle) }}</div>
                             <div class="col-md-6">{{ form_row(form.actualitesSectionSubtitle) }}</div>
-                            <div class="col-md-4">
-                                <div class="d-flex align-items-center gap-3 p-3 border rounded-2">
-                                    {{ form_widget(form.actualitesSectionBg, {'attr': {'class': 'form-control form-control-color', 'style': 'width:48px;height:48px;'}}) }}
-                                    <div>{{ form_label(form.actualitesSectionBg, null, {'label_attr': {'class': 'form-label mb-0 small fw-semibold'}}) }}</div>
-                                </div>
-                            </div>
-
-                            <div class="col-12 mt-3"><hr><h6 class="small fw-semibold">Section Contact</h6></div>
+                            <div class="col-md-4">{{ form_row(form.actualitesSectionBg) }}</div>
                             <div class="col-md-6">{{ form_row(form.contactSectionTitle) }}</div>
                             <div class="col-md-6">{{ form_row(form.contactSectionSubtitle) }}</div>
-                            <div class="col-md-4">
-                                <div class="d-flex align-items-center gap-3 p-3 border rounded-2">
-                                    {{ form_widget(form.contactSectionBg, {'attr': {'class': 'form-control form-control-color', 'style': 'width:48px;height:48px;'}}) }}
-                                    <div>{{ form_label(form.contactSectionBg, null, {'label_attr': {'class': 'form-label mb-0 small fw-semibold'}}) }}</div>
-                                </div>
-                            </div>
+                            <div class="col-md-4">{{ form_row(form.contactSectionBg) }}</div>
                         </div>
                     </div>
 
-                    {# ====== TAB: ABOUT ====== #}
                     <div class="tab-pane fade" id="tab-about" role="tabpanel">
-                        <h6 class="fw-bold mb-4 text-muted text-uppercase small">Section À propos (optionnelle)</h6>
-                        <div class="mb-3 form-check">
-                            {{ form_widget(form.aboutEnabled) }}
-                            {{ form_label(form.aboutEnabled, null, {'label_attr': {'class': 'form-check-label fw-semibold'}}) }}
-                        </div>
+                        <h6 class="fw-bold mb-4 text-muted text-uppercase small">Section A propos</h6>
+                        <div class="mb-3 form-check">{{ form_widget(form.aboutEnabled) }} {{ form_label(form.aboutEnabled, null, {'label_attr': {'class': 'form-check-label fw-semibold'}}) }}</div>
                         <div class="row g-3" id="about-fields">
                             <div class="col-12">{{ form_row(form.aboutTitle) }}</div>
                             <div class="col-12">{{ form_row(form.aboutText) }}</div>
                             <div class="col-md-6">{{ form_row(form.aboutImageFile) }}</div>
                             {% if lp.aboutImage %}
-                            <div class="col-md-6">
-                                <label class="form-label small text-muted">Image actuelle</label><br>
-                                <img src="{{ asset('uploads/about/' ~ lp.aboutImage) }}"
-                                     class="img-thumbnail" style="max-height:100px;">
-                            </div>
+                                <div class="col-md-6"><label class="form-label small text-muted">Image actuelle</label><br><img src="{{ asset('uploads/about/' ~ lp.aboutImage) }}" alt="Apercu de l'image a propos actuelle" class="img-thumbnail" style="max-height:100px;"></div>
                             {% endif %}
                         </div>
                     </div>
 
-                </div>{# /tab-content #}
+                    <div class="tab-pane fade" id="tab-blocks" role="tabpanel">
+                        <h6 class="fw-bold mb-4 text-muted text-uppercase small">Blocs predefinis (contenu minimal)</h6>
+                        <div class="row g-3">
+                            <div class="col-12 border rounded p-3">
+                                <div class="form-check mb-2">{{ form_widget(form.socialBlockEnabled) }} {{ form_label(form.socialBlockEnabled, null, {'label_attr': {'class': 'form-check-label fw-semibold'}}) }}</div>
+                                <div class="row g-2">
+                                    <div class="col-md-5">{{ form_row(form.socialBlockTitle) }}</div>
+                                    <div class="col-md-5">{{ form_row(form.socialBlockSubtitle) }}</div>
+                                    <div class="col-md-2">{{ form_row(form.socialBlockBg) }}</div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 border rounded p-3">
+                                <div class="form-check mb-2">{{ form_widget(form.faqEnabled) }} {{ form_label(form.faqEnabled, null, {'label_attr': {'class': 'form-check-label fw-semibold'}}) }}</div>
+                                <div class="row g-2">
+                                    <div class="col-md-5">{{ form_row(form.faqTitle) }}</div>
+                                    <div class="col-md-5">{{ form_row(form.faqSubtitle) }}</div>
+                                    <div class="col-md-2">{{ form_row(form.faqBg) }}</div>
+                                </div>
+                                <hr class="my-3">
+                                <div class="row g-2">
+                                    <div class="col-12"><h6 class="fw-semibold small text-muted mb-1">Question 1</h6></div>
+                                    <div class="col-md-5">{{ form_row(form.faqQ1) }}</div>
+                                    <div class="col-md-7">{{ form_row(form.faqA1) }}</div>
+                                    <div class="col-12"><h6 class="fw-semibold small text-muted mb-1">Question 2</h6></div>
+                                    <div class="col-md-5">{{ form_row(form.faqQ2) }}</div>
+                                    <div class="col-md-7">{{ form_row(form.faqA2) }}</div>
+                                    <div class="col-12"><h6 class="fw-semibold small text-muted mb-1">Question 3</h6></div>
+                                    <div class="col-md-5">{{ form_row(form.faqQ3) }}</div>
+                                    <div class="col-md-7">{{ form_row(form.faqA3) }}</div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 border rounded p-3">
+                                <div class="form-check mb-2">{{ form_widget(form.testimonialsEnabled) }} {{ form_label(form.testimonialsEnabled, null, {'label_attr': {'class': 'form-check-label fw-semibold'}}) }}</div>
+                                <div class="row g-2">
+                                    <div class="col-md-5">{{ form_row(form.testimonialsTitle) }}</div>
+                                    <div class="col-md-5">{{ form_row(form.testimonialsSubtitle) }}</div>
+                                    <div class="col-md-2">{{ form_row(form.testimonialsBg) }}</div>
+                                </div>
+                                <hr class="my-3">
+                                {% for n in 1..3 %}
+                                <div class="row g-2 mb-3">
+                                    <div class="col-12"><h6 class="fw-semibold small text-muted mb-1">Témoignage {{ n }}</h6></div>
+                                    <div class="col-md-6">{{ form_row(form['testimonial' ~ n ~ 'Text']) }}</div>
+                                    <div class="col-md-3">{{ form_row(form['testimonial' ~ n ~ 'Author']) }}</div>
+                                    <div class="col-md-3">{{ form_row(form['testimonial' ~ n ~ 'Role']) }}</div>
+                                </div>
+                                {% endfor %}
+                            </div>
+
+                            <div class="col-12 border rounded p-3">
+                                <div class="form-check mb-2">{{ form_widget(form.galleryEnabled) }} {{ form_label(form.galleryEnabled, null, {'label_attr': {'class': 'form-check-label fw-semibold'}}) }}</div>
+                                <div class="row g-2">
+                                    <div class="col-md-5">{{ form_row(form.galleryTitle) }}</div>
+                                    <div class="col-md-5">{{ form_row(form.gallerySubtitle) }}</div>
+                                    <div class="col-md-2">{{ form_row(form.galleryBg) }}</div>
+                                </div>
+                                <hr class="my-3">
+                                <div class="row g-3">
+                                    {% for n in 1..6 %}
+                                    <div class="col-md-4">
+                                        <div class="border rounded p-2">
+                                            <h6 class="fw-semibold small text-muted mb-2">Photo {{ n }}</h6>
+                                            {{ form_row(form['galleryImage' ~ n ~ 'File']) }}
+                                            {% set imgGetter = 'galleryImage' ~ n %}
+                                            {% if attribute(lp, imgGetter) %}
+                                                <img src="{{ asset('uploads/gallery/' ~ attribute(lp, imgGetter)) }}" alt="Galerie {{ n }}" class="img-thumbnail mt-1" style="max-height:80px;">
+                                            {% endif %}
+                                            {{ form_row(form['galleryCaption' ~ n]) }}
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            <div class="col-12 border rounded p-3">
+                                <div class="form-check mb-2">{{ form_widget(form.partnersEnabled) }} {{ form_label(form.partnersEnabled, null, {'label_attr': {'class': 'form-check-label fw-semibold'}}) }}</div>
+                                <div class="row g-2">
+                                    <div class="col-md-5">{{ form_row(form.partnersTitle) }}</div>
+                                    <div class="col-md-5">{{ form_row(form.partnersSubtitle) }}</div>
+                                    <div class="col-md-2">{{ form_row(form.partnersBg) }}</div>
+                                </div>
+                                <hr class="my-3">
+                                <div class="row g-3">
+                                    {% for n in 1..6 %}
+                                    <div class="col-md-4">
+                                        <div class="border rounded p-2">
+                                            <h6 class="fw-semibold small text-muted mb-2">Partenaire {{ n }}</h6>
+                                            {{ form_row(form['partnerName' ~ n]) }}
+                                            {{ form_row(form['partnerLogo' ~ n ~ 'File']) }}
+                                            {% set logoGetter = 'partnerLogo' ~ n %}
+                                            {% if attribute(lp, logoGetter) %}
+                                                <img src="{{ asset('uploads/partners/' ~ attribute(lp, logoGetter)) }}" alt="Partenaire {{ n }}" class="img-thumbnail mt-1" style="max-height:60px;">
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            <div class="col-12 border rounded p-3">
+                                <div class="form-check mb-2">{{ form_widget(form.servicesEnabled) }} {{ form_label(form.servicesEnabled, null, {'label_attr': {'class': 'form-check-label fw-semibold'}}) }}</div>
+                                <div class="row g-3">
+                                    <div class="col-md-5">{{ form_row(form.servicesTitle) }}</div>
+                                    <div class="col-md-5">{{ form_row(form.servicesSubtitle) }}</div>
+                                    <div class="col-md-2">{{ form_row(form.servicesBg) }}</div>
+
+                                    <div class="col-12"><hr class="my-2"><h6 class="fw-semibold mb-0">Carte 1</h6></div>
+                                    <div class="col-md-4">{{ form_row(form.serviceCard1Title) }}</div>
+                                    <div class="col-md-5">{{ form_row(form.serviceCard1Description) }}</div>
+                                    <div class="col-md-3">{{ form_row(form.serviceCard1ImageFile) }}</div>
+                                    {% if lp.serviceCard1Image %}
+                                        <div class="col-md-3"><label class="form-label small text-muted">Image actuelle</label><br><img src="{{ asset('uploads/services/' ~ lp.serviceCard1Image) }}" alt="Apercu service 1" class="img-thumbnail" style="max-height:100px;"></div>
+                                    {% endif %}
+
+                                    <div class="col-12"><hr class="my-2"><h6 class="fw-semibold mb-0">Carte 2</h6></div>
+                                    <div class="col-md-4">{{ form_row(form.serviceCard2Title) }}</div>
+                                    <div class="col-md-5">{{ form_row(form.serviceCard2Description) }}</div>
+                                    <div class="col-md-3">{{ form_row(form.serviceCard2ImageFile) }}</div>
+                                    {% if lp.serviceCard2Image %}
+                                        <div class="col-md-3"><label class="form-label small text-muted">Image actuelle</label><br><img src="{{ asset('uploads/services/' ~ lp.serviceCard2Image) }}" alt="Apercu service 2" class="img-thumbnail" style="max-height:100px;"></div>
+                                    {% endif %}
+
+                                    <div class="col-12"><hr class="my-2"><h6 class="fw-semibold mb-0">Carte 3</h6></div>
+                                    <div class="col-md-4">{{ form_row(form.serviceCard3Title) }}</div>
+                                    <div class="col-md-5">{{ form_row(form.serviceCard3Description) }}</div>
+                                    <div class="col-md-3">{{ form_row(form.serviceCard3ImageFile) }}</div>
+                                    {% if lp.serviceCard3Image %}
+                                        <div class="col-md-3"><label class="form-label small text-muted">Image actuelle</label><br><img src="{{ asset('uploads/services/' ~ lp.serviceCard3Image) }}" alt="Apercu service 3" class="img-thumbnail" style="max-height:100px;"></div>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <div class="col-12 border rounded p-3">
+                                <div class="form-check mb-2">{{ form_widget(form.ctaBlockEnabled) }} {{ form_label(form.ctaBlockEnabled, null, {'label_attr': {'class': 'form-check-label fw-semibold'}}) }}</div>
+                                <div class="row g-2">
+                                    <div class="col-md-4">{{ form_row(form.ctaBlockTitle) }}</div>
+                                    <div class="col-md-4">{{ form_row(form.ctaBlockText) }}</div>
+                                    <div class="col-md-2">{{ form_row(form.ctaButtonText) }}</div>
+                                    <div class="col-md-2">{{ form_row(form.ctaButtonLink) }}</div>
+                                    <div class="col-md-2">{{ form_row(form.ctaBlockBg) }}</div>
+                                    <div class="col-md-2">{{ form_row(form.ctaTextColor) }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="tab-order" role="tabpanel">
+                        <h6 class="fw-bold mb-2 text-muted text-uppercase small">Ordre d'affichage (glisser/deposer)</h6>
+                        <p class="small text-muted">Les blocs desactives ne seront pas affiches meme s'ils sont dans la liste.</p>
+                        <ul class="list-group" id="section-order-list">
+                            <li class="list-group-item d-flex justify-content-between align-items-center" data-section-id="hero"><span><i class="bi bi-grip-vertical me-2 text-muted"></i>Hero</span><span class="badge text-bg-light">fixe</span></li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center" data-section-id="about"><span><i class="bi bi-grip-vertical me-2 text-muted"></i>A propos</span><span class="badge text-bg-light">optionnel</span></li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center" data-section-id="actualites"><span><i class="bi bi-grip-vertical me-2 text-muted"></i>Actualites</span><span class="badge text-bg-light">fixe</span></li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center" data-section-id="services"><span><i class="bi bi-grip-vertical me-2 text-muted"></i>Bloc Services</span><span class="badge text-bg-light">predefini</span></li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center" data-section-id="social"><span><i class="bi bi-grip-vertical me-2 text-muted"></i>Bloc Reseaux sociaux</span><span class="badge text-bg-light">predefini</span></li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center" data-section-id="faq"><span><i class="bi bi-grip-vertical me-2 text-muted"></i>Bloc FAQ</span><span class="badge text-bg-light">predefini</span></li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center" data-section-id="testimonials"><span><i class="bi bi-grip-vertical me-2 text-muted"></i>Bloc Temoignages</span><span class="badge text-bg-light">predefini</span></li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center" data-section-id="gallery"><span><i class="bi bi-grip-vertical me-2 text-muted"></i>Bloc Galerie</span><span class="badge text-bg-light">predefini</span></li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center" data-section-id="partners"><span><i class="bi bi-grip-vertical me-2 text-muted"></i>Bloc Partenaires</span><span class="badge text-bg-light">predefini</span></li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center" data-section-id="cta"><span><i class="bi bi-grip-vertical me-2 text-muted"></i>Bloc CTA</span><span class="badge text-bg-light">predefini</span></li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center" data-section-id="contact"><span><i class="bi bi-grip-vertical me-2 text-muted"></i>Contact</span><span class="badge text-bg-light">fixe</span></li>
+                        </ul>
+                    </div>
+                </div>
 
                 <div class="mt-4 pt-3 border-top">
-                    <button type="submit" class="btn btn-primary px-4">
-                        <i class="bi bi-check-lg me-2"></i>Enregistrer les modifications
-                    </button>
-                    <a href="{{ path('home', {'_locale': 'fr'}) }}" target="_blank" class="btn btn-outline-secondary ms-2">
-                        <i class="bi bi-eye me-2"></i>Voir le site
-                    </a>
+                    <button type="submit" class="btn btn-primary px-4"><i class="bi bi-check-lg me-2"></i>Enregistrer les modifications</button>
+                    <a href="{{ path('home', {'_locale': 'fr'}) }}" target="_blank" class="btn btn-outline-secondary ms-2"><i class="bi bi-eye me-2"></i>Voir le site</a>
                 </div>
 
                 {{ form_end(form) }}
@@ -188,24 +279,15 @@
         </div>
     </div>
 
-    {# Quick preview panel #}
     <div class="col-lg-3">
         <div class="card border-0 shadow-sm sticky-top" style="top: 80px;">
             <div class="card-body p-3">
-                <h6 class="fw-bold mb-3 small text-muted text-uppercase">Aperçu couleurs</h6>
+                <h6 class="fw-bold mb-3 small text-muted text-uppercase">Apercu couleurs</h6>
                 <div id="color-preview" class="rounded-2 overflow-hidden border">
-                    <div class="p-3 text-white" id="preview-hero" style="background: {{ lp.heroBackgroundColor ?? lp.colorPrimary }}">
-                        <div class="small fw-bold" id="preview-title">{{ lp.heroTitle }}</div>
-                    </div>
-                    <div class="p-2 border-bottom" id="preview-navbar" style="background: {{ lp.colorNavbarBg }}">
-                        <span class="small fw-semibold" id="preview-nav-text" style="color: {{ lp.colorNavbarText }}">Navbar</span>
-                    </div>
-                    <div class="p-2" id="preview-bg" style="background: {{ lp.colorBackground }}">
-                        <span class="small" id="preview-body-text" style="color: {{ lp.colorText }}">Corps du texte</span>
-                    </div>
-                    <div class="p-2 text-white" id="preview-footer" style="background: {{ lp.colorFooterBg }}">
-                        <span class="small" id="preview-footer-text" style="color: {{ lp.colorFooterText }}">Footer</span>
-                    </div>
+                    <div class="p-3 text-white" id="preview-hero" style="background: {{ lp.heroBackgroundColor ?? lp.colorPrimary }}"><div class="small fw-bold" id="preview-title">{{ lp.heroTitle }}</div></div>
+                    <div class="p-2 border-bottom" id="preview-navbar" style="background: {{ lp.colorNavbarBg }}"><span class="small fw-semibold" id="preview-nav-text" style="color: {{ lp.colorNavbarText }}">Navbar</span></div>
+                    <div class="p-2" id="preview-bg" style="background: {{ lp.colorBackground }}"><span class="small" id="preview-body-text" style="color: {{ lp.colorText }}">Corps du texte</span></div>
+                    <div class="p-2 text-white" id="preview-footer" style="background: {{ lp.colorFooterBg }}"><span class="small" id="preview-footer-text" style="color: {{ lp.colorFooterText }}">Footer</span></div>
                 </div>
             </div>
         </div>
@@ -214,28 +296,24 @@
 {% endblock %}
 
 {% block javascripts %}
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
 <script>
-// Live color preview
-document.querySelectorAll('input[type="color"]').forEach(input => {
-    input.addEventListener('input', function() {
+document.querySelectorAll('input[type="color"]').forEach((input) => {
+    input.addEventListener('input', function () {
         const fieldId = this.id;
         const value = this.value;
-
-        // Show hex value next to picker
         const container = this.closest('.d-flex');
         if (container) {
             const valueEl = container.querySelector('.color-preview-value');
             if (valueEl) valueEl.textContent = value;
         }
-
-        // Update preview panel
         const map = {
-            'landing_page_content_colorNavbarBg':   () => document.getElementById('preview-navbar').style.background = value,
-            'landing_page_content_colorNavbarText':  () => document.getElementById('preview-nav-text').style.color = value,
-            'landing_page_content_colorBackground':  () => document.getElementById('preview-bg').style.background = value,
-            'landing_page_content_colorText':        () => document.getElementById('preview-body-text').style.color = value,
-            'landing_page_content_colorFooterBg':    () => document.getElementById('preview-footer').style.background = value,
-            'landing_page_content_colorFooterText':  () => document.getElementById('preview-footer-text').style.color = value,
+            'landing_page_content_colorNavbarBg': () => document.getElementById('preview-navbar').style.background = value,
+            'landing_page_content_colorNavbarText': () => document.getElementById('preview-nav-text').style.color = value,
+            'landing_page_content_colorBackground': () => document.getElementById('preview-bg').style.background = value,
+            'landing_page_content_colorText': () => document.getElementById('preview-body-text').style.color = value,
+            'landing_page_content_colorFooterBg': () => document.getElementById('preview-footer').style.background = value,
+            'landing_page_content_colorFooterText': () => document.getElementById('preview-footer-text').style.color = value,
             'landing_page_content_heroBackgroundColor': () => document.getElementById('preview-hero').style.background = value,
         };
         if (map[fieldId]) map[fieldId]();
@@ -243,13 +321,37 @@ document.querySelectorAll('input[type="color"]').forEach(input => {
     input.dispatchEvent(new Event('input'));
 });
 
-// Toggle About fields visibility
 const aboutToggle = document.getElementById('landing_page_content_aboutEnabled');
 const aboutFields = document.getElementById('about-fields');
 if (aboutToggle && aboutFields) {
     const toggle = () => aboutFields.style.opacity = aboutToggle.checked ? '1' : '.4';
     toggle();
     aboutToggle.addEventListener('change', toggle);
+}
+
+const list = document.getElementById('section-order-list');
+const orderInput = document.getElementById('landing_page_content_sectionOrder');
+if (list && orderInput) {
+    const ids = Array.from(list.querySelectorAll('[data-section-id]')).map((el) => el.dataset.sectionId);
+    const fromDb = (orderInput.value || '').split(',').map((v) => v.trim()).filter(Boolean);
+    const normalized = fromDb.length ? fromDb : ids;
+
+    normalized.forEach((id) => {
+        const item = list.querySelector('[data-section-id="' + id + '"]');
+        if (item) list.appendChild(item);
+    });
+
+    ids.filter((id) => !normalized.includes(id)).forEach((id) => {
+        const item = list.querySelector('[data-section-id="' + id + '"]');
+        if (item) list.appendChild(item);
+    });
+
+    const syncOrder = () => {
+        orderInput.value = Array.from(list.querySelectorAll('[data-section-id]')).map((el) => el.dataset.sectionId).join(',');
+    };
+
+    Sortable.create(list, { animation: 150, ghostClass: 'bg-light' , onSort: syncOrder });
+    syncOrder();
 }
 </script>
 {% endblock %}

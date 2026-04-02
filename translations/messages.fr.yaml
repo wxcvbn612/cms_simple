@@ -17,8 +17,40 @@ contact:
 actualites:
     empty: Aucune actualité disponible pour le moment.
 
+landing:
+    faq:
+        q1: Quels services proposez-vous ?
+        a1: Nous proposons des services personnalises adaptes a votre besoin.
+        q2: Comment demander un devis ?
+        a2: Utilisez le formulaire de contact et nous revenons rapidement vers vous.
+        q3: Travaillez-vous avec des entreprises et des particuliers ?
+        a3: Oui, nos offres s'adaptent aux professionnels comme aux particuliers.
+    testimonials:
+        item1: Equipe tres reactive et resultat excellent.
+        author1: Client 1
+        item2: Une collaboration claire et efficace du debut a la fin.
+        author2: Client 2
+        item3: Nous recommandons fortement cette equipe.
+        author3: Client 3
+    gallery:
+        item1: Projet 1
+        item2: Projet 2
+        item3: Projet 3
+        item4: Projet 4
+        item5: Projet 5
+        item6: Projet 6
+    partners:
+        item1: Partenaire 1
+        item2: Partenaire 2
+        item3: Partenaire 3
+        item4: Partenaire 4
+        item5: Partenaire 5
+        item6: Partenaire 6
+
 # Admin messages
 admin:
+    form:
+        invalid: Le formulaire contient des erreurs. Veuillez verifier les champs.
     actualite:
         created: L'actualité a été créée avec succès.
         updated: L'actualité a été mise à jour avec succès.

@@ -75,8 +75,12 @@ class ActualiteController extends AbstractController
     }
 
     #[Route('/{id}/toggle', name: 'admin_actualite_toggle', methods: ['POST'])]
-    public function toggle(Actualite $actualite, EntityManagerInterface $em): Response
+    public function toggle(Actualite $actualite, Request $request, EntityManagerInterface $em): Response
     {
+        if (!$this->isCsrfTokenValid('toggle' . $actualite->getId(), $request->request->get('_token'))) {
+            throw $this->createAccessDeniedException('Invalid CSRF token.');
+        }
+
         $actualite->setIsPublished(!$actualite->isPublished());
         $em->flush();
 

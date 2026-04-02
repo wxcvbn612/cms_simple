@@ -34,11 +34,11 @@ class ActualiteType extends AbstractType
                 'mapped' => false,
                 'required' => false,
                 'constraints' => [
-                    new File([
-                        'maxSize' => '2M',
-                        'mimeTypes' => ['image/jpeg', 'image/png', 'image/webp'],
-                        'mimeTypesMessage' => 'Veuillez télécharger une image valide (JPG, PNG, WebP).',
-                    ]),
+                    new File(
+                        maxSize: '2M',
+                        mimeTypes: ['image/jpeg', 'image/png', 'image/webp'],
+                        mimeTypesMessage: 'Veuillez télécharger une image valide (JPG, PNG, WebP).',
+                    ),
                 ],
                 'attr' => ['class' => 'form-control'],
             ])

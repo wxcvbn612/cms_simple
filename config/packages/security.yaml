@@ -24,6 +24,7 @@ security:
                 password_parameter: _password
                 default_target_path: admin_dashboard
                 enable_csrf: true
+                csrf_token_id: authenticate
             logout:
                 path: admin_logout
                 target: admin_login

@@ -18,13 +18,26 @@ class LandingPageContentRepository extends ServiceEntityRepository
 
     public function getContent(): LandingPageContent
     {
-        $content = $this->find(1);
+        $allContentRows = $this->findBy([], ['id' => 'ASC']);
+        $content = array_shift($allContentRows);
 
         if ($content === null) {
             $content = new LandingPageContent();
 
             $em = $this->getEntityManager();
             $em->persist($content);
+            $em->flush();
+
+            return $content;
+        }
+
+        if ($allContentRows !== []) {
+            $em = $this->getEntityManager();
+
+            foreach ($allContentRows as $duplicateContent) {
+                $em->remove($duplicateContent);
+            }
+
             $em->flush();
         }
 

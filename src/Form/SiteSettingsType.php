@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\SiteSettings;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -36,7 +37,7 @@ class SiteSettingsType extends AbstractType
                 'mapped' => false,
                 'required' => false,
                 'constraints' => [
-                    new File(['maxSize' => '1M', 'mimeTypes' => ['image/png', 'image/svg+xml', 'image/webp', 'image/jpeg']]),
+                    new File(maxSize: '1M', mimeTypes: ['image/png', 'image/svg+xml', 'image/webp', 'image/jpeg']),
                 ],
                 'attr' => ['class' => 'form-control'],
             ])
@@ -45,7 +46,7 @@ class SiteSettingsType extends AbstractType
                 'mapped' => false,
                 'required' => false,
                 'constraints' => [
-                    new File(['maxSize' => '512k', 'mimeTypes' => ['image/x-icon', 'image/png', 'image/vnd.microsoft.icon']]),
+                    new File(maxSize: '512k', mimeTypes: ['image/x-icon', 'image/png', 'image/vnd.microsoft.icon']),
                 ],
                 'attr' => ['class' => 'form-control'],
             ])
@@ -85,10 +86,45 @@ class SiteSettingsType extends AbstractType
                 'required' => false,
                 'attr' => ['class' => 'form-control'],
             ])
+            ->add('xUrl', UrlType::class, [
+                'label' => 'X (Twitter) URL',
+                'required' => false,
+                'attr' => ['class' => 'form-control'],
+            ])
+            ->add('linkedinUrl', UrlType::class, [
+                'label' => 'LinkedIn URL',
+                'required' => false,
+                'attr' => ['class' => 'form-control'],
+            ])
+            ->add('youtubeUrl', UrlType::class, [
+                'label' => 'YouTube URL',
+                'required' => false,
+                'attr' => ['class' => 'form-control'],
+            ])
+            ->add('tiktokUrl', UrlType::class, [
+                'label' => 'TikTok URL',
+                'required' => false,
+                'attr' => ['class' => 'form-control'],
+            ])
             ->add('whatsapp', TextType::class, [
                 'label' => 'WhatsApp (numéro avec indicatif)',
                 'required' => false,
                 'attr' => ['class' => 'form-control', 'placeholder' => '+213xxxxxxxxx'],
+            ])
+            ->add('showSocialInNavbar', CheckboxType::class, [
+                'label' => 'Afficher les reseaux sociaux dans la navbar',
+                'required' => false,
+                'attr' => ['class' => 'form-check-input'],
+            ])
+            ->add('showSocialInFooter', CheckboxType::class, [
+                'label' => 'Afficher les reseaux sociaux dans le footer',
+                'required' => false,
+                'attr' => ['class' => 'form-check-input'],
+            ])
+            ->add('showSocialInLandingBlock', CheckboxType::class, [
+                'label' => 'Afficher les reseaux sociaux dans le bloc dedie',
+                'required' => false,
+                'attr' => ['class' => 'form-check-input'],
             ])
             ->add('footerText', TextareaType::class, [
                 'label' => 'Texte du pied de page',

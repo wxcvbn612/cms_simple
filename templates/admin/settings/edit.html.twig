@@ -48,7 +48,31 @@
                     <div class="col-12"><hr><h6 class="fw-bold">Réseaux sociaux</h6></div>
                     <div class="col-md-4">{{ form_row(form.facebookUrl) }}</div>
                     <div class="col-md-4">{{ form_row(form.instagramUrl) }}</div>
+                    <div class="col-md-4">{{ form_row(form.xUrl) }}</div>
+                    <div class="col-md-4">{{ form_row(form.linkedinUrl) }}</div>
+                    <div class="col-md-4">{{ form_row(form.youtubeUrl) }}</div>
+                    <div class="col-md-4">{{ form_row(form.tiktokUrl) }}</div>
                     <div class="col-md-4">{{ form_row(form.whatsapp) }}</div>
+
+                    <div class="col-12"><h6 class="fw-bold">Emplacement des réseaux</h6></div>
+                    <div class="col-md-4">
+                        <div class="form-check mt-2">
+                            {{ form_widget(form.showSocialInNavbar) }}
+                            {{ form_label(form.showSocialInNavbar, null, {'label_attr': {'class': 'form-check-label'}}) }}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-check mt-2">
+                            {{ form_widget(form.showSocialInFooter) }}
+                            {{ form_label(form.showSocialInFooter, null, {'label_attr': {'class': 'form-check-label'}}) }}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-check mt-2">
+                            {{ form_widget(form.showSocialInLandingBlock) }}
+                            {{ form_label(form.showSocialInLandingBlock, null, {'label_attr': {'class': 'form-check-label'}}) }}
+                        </div>
+                    </div>
 
                     <div class="col-12">{{ form_row(form.footerText) }}</div>
 

@@ -18,7 +18,8 @@ class SiteSettingsRepository extends ServiceEntityRepository
 
     public function getSettings(): SiteSettings
     {
-        $settings = $this->find(1);
+        $allSettingsRows = $this->findBy([], ['id' => 'ASC']);
+        $settings = array_shift($allSettingsRows);
 
         if ($settings === null) {
             $settings = new SiteSettings();
@@ -28,6 +29,18 @@ class SiteSettingsRepository extends ServiceEntityRepository
 
             $em = $this->getEntityManager();
             $em->persist($settings);
+            $em->flush();
+
+            return $settings;
+        }
+
+        if ($allSettingsRows !== []) {
+            $em = $this->getEntityManager();
+
+            foreach ($allSettingsRows as $duplicateSettings) {
+                $em->remove($duplicateSettings);
+            }
+
             $em->flush();
         }
 

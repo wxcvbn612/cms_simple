@@ -51,11 +51,32 @@ class SiteSettings
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $instagramUrl = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $xUrl = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $linkedinUrl = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $youtubeUrl = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $tiktokUrl = null;
+
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $whatsapp = null;
 
     #[ORM\Column(length: 500, nullable: true)]
     private ?string $footerText = null;
+
+    #[ORM\Column]
+    private bool $showSocialInNavbar = false;
+
+    #[ORM\Column]
+    private bool $showSocialInFooter = true;
+
+    #[ORM\Column]
+    private bool $showSocialInLandingBlock = false;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $updatedAt = null;
@@ -193,6 +214,50 @@ class SiteSettings
         return $this;
     }
 
+    public function getXUrl(): ?string
+    {
+        return $this->xUrl;
+    }
+
+    public function setXUrl(?string $xUrl): static
+    {
+        $this->xUrl = $xUrl;
+        return $this;
+    }
+
+    public function getLinkedinUrl(): ?string
+    {
+        return $this->linkedinUrl;
+    }
+
+    public function setLinkedinUrl(?string $linkedinUrl): static
+    {
+        $this->linkedinUrl = $linkedinUrl;
+        return $this;
+    }
+
+    public function getYoutubeUrl(): ?string
+    {
+        return $this->youtubeUrl;
+    }
+
+    public function setYoutubeUrl(?string $youtubeUrl): static
+    {
+        $this->youtubeUrl = $youtubeUrl;
+        return $this;
+    }
+
+    public function getTiktokUrl(): ?string
+    {
+        return $this->tiktokUrl;
+    }
+
+    public function setTiktokUrl(?string $tiktokUrl): static
+    {
+        $this->tiktokUrl = $tiktokUrl;
+        return $this;
+    }
+
     public function getWhatsapp(): ?string
     {
         return $this->whatsapp;
@@ -212,6 +277,54 @@ class SiteSettings
     public function setFooterText(?string $footerText): static
     {
         $this->footerText = $footerText;
+        return $this;
+    }
+
+    public function isShowSocialInNavbar(): bool
+    {
+        return $this->showSocialInNavbar;
+    }
+
+    public function getShowSocialInNavbar(): bool
+    {
+        return $this->showSocialInNavbar;
+    }
+
+    public function setShowSocialInNavbar(bool $showSocialInNavbar): static
+    {
+        $this->showSocialInNavbar = $showSocialInNavbar;
+        return $this;
+    }
+
+    public function isShowSocialInFooter(): bool
+    {
+        return $this->showSocialInFooter;
+    }
+
+    public function getShowSocialInFooter(): bool
+    {
+        return $this->showSocialInFooter;
+    }
+
+    public function setShowSocialInFooter(bool $showSocialInFooter): static
+    {
+        $this->showSocialInFooter = $showSocialInFooter;
+        return $this;
+    }
+
+    public function isShowSocialInLandingBlock(): bool
+    {
+        return $this->showSocialInLandingBlock;
+    }
+
+    public function getShowSocialInLandingBlock(): bool
+    {
+        return $this->showSocialInLandingBlock;
+    }
+
+    public function setShowSocialInLandingBlock(bool $showSocialInLandingBlock): static
+    {
+        $this->showSocialInLandingBlock = $showSocialInLandingBlock;
         return $this;
     }
 
