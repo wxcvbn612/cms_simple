@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ActualiteType extends AbstractType
@@ -21,8 +22,11 @@ class ActualiteType extends AbstractType
         $builder
             ->add('titre', TextType::class, [
                 'label' => 'Titre',
-                'constraints' => [new NotBlank()],
-                'attr' => ['class' => 'form-control'],
+                'constraints' => [
+                    new NotBlank(),
+                    new Length(max: 512, maxMessage: 'Le titre ne peut pas dépasser {{ limit }} caractères.'),
+                ],
+                'attr' => ['class' => 'form-control', 'maxlength' => 512],
             ])
             ->add('contenu', TextareaType::class, [
                 'label' => 'Contenu',

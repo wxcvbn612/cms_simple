@@ -1,0 +1,19 @@
+// =============================================================
+// RTL stylesheet (Arabic locale)
+// =============================================================
+
+// 1. Override Bootstrap variables BEFORE importing Bootstrap
+@import 'variables';
+
+// 2. Enable RTL mode — Bootstrap 5 generates [dir=rtl] rules from SCSS source
+//    Must be set BEFORE @import bootstrap so the !default flag doesn't override it
+$enable-rtl: true;
+
+// 3. Import Bootstrap SCSS source (RTL mode, variables applied)
+@import '~bootstrap/scss/bootstrap';
+
+// 4. Import Bootstrap Icons
+@import '~bootstrap-icons/font/bootstrap-icons';
+
+// 5. Import custom theme (animations, overrides, etc.)
+@import 'custom';

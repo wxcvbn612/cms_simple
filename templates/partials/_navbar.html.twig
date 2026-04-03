@@ -1,0 +1,77 @@
+{#
+  Navbar partagée — incluse par défaut dans base.html.twig via {% block navbar %}.
+  Pour surcharger : définir {% block navbar %}...{% endblock %} dans le template enfant.
+#}
+<nav class="navbar navbar-expand-lg sticky-top" style="background-color: var(--color-navbar-bg);">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="{{ path('home', {'_locale': app.request.locale}) }}" style="color: var(--color-navbar-text);">
+            {% if settings.logoFilename %}
+                <img src="{{ asset('uploads/logo/' ~ settings.logoFilename) }}" alt="{{ settings.siteName }}" height="40">
+            {% else %}
+                {{ settings.siteName }}
+            {% endif %}
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain"
+                aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarMain">
+            <ul class="navbar-nav ms-auto align-items-center gap-2">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('home', {'_locale': app.request.locale}) }}#actualites" style="color: var(--color-navbar-text);">
+                        {{ lp.actualitesSectionTitle }}
+                    </a>
+                </li>
+                {% if lp.servicesEnabled %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('home', {'_locale': app.request.locale}) }}#services" style="color: var(--color-navbar-text);">
+                        {{ lp.servicesTitle }}
+                    </a>
+                </li>
+                {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('home', {'_locale': app.request.locale}) }}#contact" style="color: var(--color-navbar-text);">
+                        {{ lp.contactSectionTitle }}
+                    </a>
+                </li>
+
+                {% if settings.showSocialInNavbar %}
+                    {% if settings.facebookUrl %}<li class="nav-item"><a class="nav-link" href="{{ settings.facebookUrl }}" target="_blank" rel="noopener noreferrer" style="color: var(--color-navbar-text);"><i class="bi bi-facebook"></i></a></li>{% endif %}
+                    {% if settings.instagramUrl %}<li class="nav-item"><a class="nav-link" href="{{ settings.instagramUrl }}" target="_blank" rel="noopener noreferrer" style="color: var(--color-navbar-text);"><i class="bi bi-instagram"></i></a></li>{% endif %}
+                    {% if settings.xUrl %}<li class="nav-item"><a class="nav-link" href="{{ settings.xUrl }}" target="_blank" rel="noopener noreferrer" style="color: var(--color-navbar-text);"><i class="bi bi-twitter-x"></i></a></li>{% endif %}
+                    {% if settings.linkedinUrl %}<li class="nav-item"><a class="nav-link" href="{{ settings.linkedinUrl }}" target="_blank" rel="noopener noreferrer" style="color: var(--color-navbar-text);"><i class="bi bi-linkedin"></i></a></li>{% endif %}
+                    {% if settings.youtubeUrl %}<li class="nav-item"><a class="nav-link" href="{{ settings.youtubeUrl }}" target="_blank" rel="noopener noreferrer" style="color: var(--color-navbar-text);"><i class="bi bi-youtube"></i></a></li>{% endif %}
+                    {% if settings.tiktokUrl %}<li class="nav-item"><a class="nav-link" href="{{ settings.tiktokUrl }}" target="_blank" rel="noopener noreferrer" style="color: var(--color-navbar-text);"><i class="bi bi-tiktok"></i></a></li>{% endif %}
+                    {% if settings.whatsapp %}<li class="nav-item"><a class="nav-link" href="https://wa.me/{{ settings.whatsapp|replace({'+': '', ' ': ''}) }}" target="_blank" rel="noopener noreferrer" style="color: var(--color-navbar-text);"><i class="bi bi-whatsapp"></i></a></li>{% endif %}
+                {% endif %}
+
+                {# Language switcher — inline SVG flags for cross-platform consistency #}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" style="color: var(--color-navbar-text);">
+                        {% if app.request.locale == 'ar' %}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="14" viewBox="0 0 900 600" class="me-1 align-text-bottom"><rect width="900" height="600" fill="#c1272d"/><polygon points="450,180 373,415 555,268 345,268 527,415" fill="none" stroke="#006233" stroke-width="24"/></svg>
+                            عربي
+                        {% else %}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="14" viewBox="0 0 900 600" class="me-1 align-text-bottom"><rect width="300" height="600" fill="#002395"/><rect x="300" width="300" height="600" fill="#fff"/><rect x="600" width="300" height="600" fill="#ED2939"/></svg>
+                            FR
+                        {% endif %}
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center gap-2" href="{{ path('home', {'_locale': 'fr'}) }}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="14" viewBox="0 0 900 600"><rect width="300" height="600" fill="#002395"/><rect x="300" width="300" height="600" fill="#fff"/><rect x="600" width="300" height="600" fill="#ED2939"/></svg>
+                                Français
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center gap-2" href="{{ path('home', {'_locale': 'ar'}) }}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="14" viewBox="0 0 900 600"><rect width="900" height="600" fill="#c1272d"/><polygon points="450,180 373,415 555,268 345,268 527,415" fill="none" stroke="#006233" stroke-width="24"/></svg>
+                                عربي
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Reusable Symfony 8.0 boilerplate for client presentation websites. Cloned per client. Features: news/actualités management, contact form, password-protected admin panel, multilingual (FR + AR with RTL), modular landing page with drag-and-drop section ordering.
 
-**Stack:** PHP 8.4+, Symfony 8.0, MySQL (Doctrine ORM), Bootstrap 5, AssetMapper (default), Twig, Symfony Mailer, Symfony Translation.
+**Stack:** PHP 8.4+, Symfony 8.0, MySQL (Doctrine ORM), Bootstrap 5 (local via npm), Webpack Encore + Sass, Twig, Symfony Mailer, Symfony Translation.
 
 ## Commands
 
@@ -22,9 +22,11 @@ php bin/console doctrine:fixtures:load   # Seeds SiteSettings (id=1) and Landing
 # Admin password
 php bin/console security:hash-password   # Paste result into .env.local as ADMIN_PASSWORD_HASH
 
-# Assets (AssetMapper)
-php bin/console importmap:install
-php bin/console asset-map:compile        # Production only
+# Assets (Webpack Encore)
+npm install                              # Install JS dependencies
+npm run dev                              # Build for development
+npm run watch                            # Build + watch for changes
+npm run build                            # Build for production
 
 # Tests
 vendor/bin/phpunit
@@ -92,8 +94,12 @@ Single admin user via Symfony Security `memory` provider in `security.yaml`. Pas
 Must **always** do both: save `ContactMessage` to DB **and** send email via `ContactMailer`. Honeypot field (`website`) for spam protection — checked in `ContactController` before persisting.
 
 ### Asset Strategy
-- **Default:** AssetMapper + Bootstrap 5 via CDN (no Node.js required)
-- **Switch to Webpack Encore + Tailwind** only when explicitly requested
+- **Webpack Encore** with Sass — Bootstrap 5, Bootstrap Icons, and all dependencies installed locally via npm
+- 3 Webpack entry points: `app` (public LTR), `app_rtl` (public RTL/Arabic), `admin` (admin panel)
+- Bootstrap variables overridden in `assets/styles/_variables.scss` (build-time defaults)
+- Runtime color overrides via CSS custom properties injected in `base.html.twig` from `lp.*`
+- Custom theme (animations, hover effects, scroll-to-top) in `assets/styles/_custom.scss`
+- Templates use `{{ encore_entry_link_tags() }}` and `{{ encore_entry_script_tags() }}` — NO CDN links
 
 ### Multilingual
 Routes prefixed with `{_locale}` (`/fr/`, `/ar/`). Arabic: `dir="rtl"` on `<html>`. All user-facing strings use `{{ 'key'|trans }}`. Translation files: `translations/messages.fr.yaml` and `messages.ar.yaml`. Admin panel is French-only (no locale prefix on admin routes).

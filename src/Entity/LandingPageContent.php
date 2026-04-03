@@ -21,28 +21,28 @@ class LandingPageContent
     // === COLORS ===
 
     #[ORM\Column(length: 7)]
-    private string $colorPrimary = '#0d6efd';
+    private string $colorPrimary = '#2563eb';
 
     #[ORM\Column(length: 7)]
-    private string $colorSecondary = '#6c757d';
+    private string $colorSecondary = '#64748b';
 
     #[ORM\Column(length: 7)]
     private string $colorBackground = '#ffffff';
 
     #[ORM\Column(length: 7)]
-    private string $colorText = '#212529';
+    private string $colorText = '#1e293b';
 
     #[ORM\Column(length: 7)]
     private string $colorNavbarBg = '#ffffff';
 
     #[ORM\Column(length: 7)]
-    private string $colorNavbarText = '#212529';
+    private string $colorNavbarText = '#1e293b';
 
     #[ORM\Column(length: 7)]
-    private string $colorFooterBg = '#212529';
+    private string $colorFooterBg = '#0f172a';
 
     #[ORM\Column(length: 7)]
-    private string $colorFooterText = '#ffffff';
+    private string $colorFooterText = '#e2e8f0';
 
     // === TYPOGRAPHY ===
 
@@ -67,7 +67,7 @@ class LandingPageContent
     private ?string $heroBackgroundImage = null;
 
     #[ORM\Column(length: 7, nullable: true)]
-    private ?string $heroBackgroundColor = '#0d6efd';
+    private ?string $heroBackgroundColor = '#1e40af';
 
     #[ORM\Column(length: 7)]
     private string $heroTextColor = '#ffffff';
@@ -79,7 +79,7 @@ class LandingPageContent
     private string $heroButtonColor = '#ffffff';
 
     #[ORM\Column(length: 7)]
-    private string $heroButtonTextColor = '#0d6efd';
+    private string $heroButtonTextColor = '#2563eb';
 
     // === ACTUALITÉS SECTION ===
 
@@ -90,7 +90,7 @@ class LandingPageContent
     private ?string $actualitesSectionSubtitle = null;
 
     #[ORM\Column(length: 7)]
-    private string $actualitesSectionBg = '#f8f9fa';
+    private string $actualitesSectionBg = '#f8fafc';
 
     // === CONTACT SECTION ===
 
@@ -101,7 +101,7 @@ class LandingPageContent
     private ?string $contactSectionSubtitle = null;
 
     #[ORM\Column(length: 7)]
-    private string $contactSectionBg = '#ffffff';
+    private string $contactSectionBg = '#f8fafc';
 
     // === ABOUT SECTION (optional) ===
 
@@ -130,7 +130,7 @@ class LandingPageContent
     private ?string $socialBlockSubtitle = null;
 
     #[ORM\Column(length: 7)]
-    private string $socialBlockBg = '#f8f9fa';
+    private string $socialBlockBg = '#f1f5f9';
 
     #[ORM\Column]
     private bool $testimonialsEnabled = false;
@@ -142,7 +142,7 @@ class LandingPageContent
     private ?string $testimonialsSubtitle = null;
 
     #[ORM\Column(length: 7)]
-    private string $testimonialsBg = '#ffffff';
+    private string $testimonialsBg = '#f8fafc';
 
     #[ORM\Column]
     private bool $faqEnabled = false;
@@ -154,7 +154,7 @@ class LandingPageContent
     private ?string $faqSubtitle = null;
 
     #[ORM\Column(length: 7)]
-    private string $faqBg = '#f8f9fa';
+    private string $faqBg = '#f8fafc';
 
     #[ORM\Column]
     private bool $galleryEnabled = false;
@@ -178,7 +178,7 @@ class LandingPageContent
     private ?string $partnersSubtitle = null;
 
     #[ORM\Column(length: 7)]
-    private string $partnersBg = '#f8f9fa';
+    private string $partnersBg = '#f1f5f9';
 
     #[ORM\Column]
     private bool $servicesEnabled = false;
@@ -235,7 +235,7 @@ class LandingPageContent
     private string $ctaButtonLink = '#contact';
 
     #[ORM\Column(length: 7)]
-    private string $ctaBlockBg = '#0d6efd';
+    private string $ctaBlockBg = '#2563eb';
 
     #[ORM\Column(length: 7)]
     private string $ctaTextColor = '#ffffff';

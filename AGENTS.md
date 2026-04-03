@@ -33,7 +33,7 @@
 - Seed singleton defaults: `php bin/console doctrine:fixtures:load`
 - Generate admin hash: `php bin/console security:hash-password`
 - Inspect routes: `php bin/console debug:router`
-- Assets (AssetMapper): `php bin/console importmap:install` and `php bin/console asset-map:compile`
+- Assets (Webpack Encore): `npm install` and `npm run dev` (or `npm run watch`)
 - Tests: `php bin/phpunit`
 
 ## Known Config Nuance to Check Before Changes

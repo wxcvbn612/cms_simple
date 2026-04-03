@@ -1,0 +1,15 @@
+// =============================================================
+// Main LTR stylesheet
+// =============================================================
+
+// 1. Override Bootstrap variables BEFORE importing Bootstrap
+@import 'variables';
+
+// 2. Import Bootstrap (LTR)
+@import '~bootstrap/scss/bootstrap';
+
+// 3. Import Bootstrap Icons
+@import '~bootstrap-icons/font/bootstrap-icons';
+
+// 4. Import custom theme (animations, overrides, etc.)
+@import 'custom';

@@ -1,0 +1,32 @@
+{#
+  Footer partagé — inclus par défaut dans base.html.twig via {% block footer %}.
+  Pour surcharger : définir {% block footer %}...{% endblock %} dans le template enfant.
+#}
+<footer class="py-4" style="background-color: var(--color-footer-bg); color: var(--color-footer-text);">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-4 mb-2 mb-md-0">
+                <strong>{{ settings.siteName }}</strong>
+                {% if settings.siteTagline %}
+                    <br><small>{{ settings.siteTagline }}</small>
+                {% endif %}
+            </div>
+            <div class="col-md-4 text-center mb-2 mb-md-0">
+                {% if settings.footerText %}
+                    <small>{{ settings.footerText }}</small>
+                {% endif %}
+            </div>
+            <div class="col-md-4 text-md-end">
+                {% if settings.showSocialInFooter %}
+                    {% if settings.facebookUrl %}<a href="{{ settings.facebookUrl }}" target="_blank" rel="noopener noreferrer" class="me-2" style="color: var(--color-footer-text);"><i class="bi bi-facebook fs-5"></i></a>{% endif %}
+                    {% if settings.instagramUrl %}<a href="{{ settings.instagramUrl }}" target="_blank" rel="noopener noreferrer" class="me-2" style="color: var(--color-footer-text);"><i class="bi bi-instagram fs-5"></i></a>{% endif %}
+                    {% if settings.xUrl %}<a href="{{ settings.xUrl }}" target="_blank" rel="noopener noreferrer" class="me-2" style="color: var(--color-footer-text);"><i class="bi bi-twitter-x fs-5"></i></a>{% endif %}
+                    {% if settings.linkedinUrl %}<a href="{{ settings.linkedinUrl }}" target="_blank" rel="noopener noreferrer" class="me-2" style="color: var(--color-footer-text);"><i class="bi bi-linkedin fs-5"></i></a>{% endif %}
+                    {% if settings.youtubeUrl %}<a href="{{ settings.youtubeUrl }}" target="_blank" rel="noopener noreferrer" class="me-2" style="color: var(--color-footer-text);"><i class="bi bi-youtube fs-5"></i></a>{% endif %}
+                    {% if settings.tiktokUrl %}<a href="{{ settings.tiktokUrl }}" target="_blank" rel="noopener noreferrer" class="me-2" style="color: var(--color-footer-text);"><i class="bi bi-tiktok fs-5"></i></a>{% endif %}
+                    {% if settings.whatsapp %}<a href="https://wa.me/{{ settings.whatsapp|replace({'+': '', ' ': ''}) }}" target="_blank" rel="noopener noreferrer" style="color: var(--color-footer-text);"><i class="bi bi-whatsapp fs-5"></i></a>{% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</footer>
